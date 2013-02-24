@@ -7,6 +7,8 @@ Parsing is done with JSoup in Java programming language
 
 Currently the parser is able to scrape Topics and Threads.
 
+UPDATE: post scraping available (24.02.2013.)
+
 For Topic, these attributes are scraped:
 * name (String)
 * uri (String)
