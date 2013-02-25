@@ -1,7 +1,5 @@
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,22 +20,26 @@ public class ForumPostParser {
 		postList = doc.getElementById("posts").select("div[id~=edit[0-9]+");
 	}
 	
-	public void getPostList(){
+	public int getSize(){
+		return postList.size();
+	}
+	
+	public ForumPost[] getPostList(){
 		//get Date
-		
-		System.out.println("called");
-		System.out.println(postList.size());
+		ForumPost fp;
+		ForumPost[] fpList = new ForumPost[getSize()];
+		int counter = 0;
 		for(Element el : postList){
-
 			Element table = el.select("table[id~=post[0-9]+]").first();
 			Iterator<Element> ite = table.select("tr").iterator();
-			ForumPost fp = new ForumPost();
+			fp = new ForumPost();
 			
 			//first <tr> is the date
 			//time of the post
 			fp.postDate = ite.next().text().split("#")[0];
 			System.out.println("Post date: " + fp.postDate);
 			
+			//get part of the post where name and text are located (<tr>)
 			Elements secondTR = ite.next().getElementsByTag("td");
 			
 			//get post authors name
@@ -72,6 +74,7 @@ public class ForumPostParser {
 			}
 			System.out.println(wholeText);
 			//probat parse sa regexom (?:<quote>.+</quote>.+)*
+			fp.postText = wholeText;
 			
 			//get HTML
 			String wholeHtml = a.html();
@@ -79,8 +82,12 @@ public class ForumPostParser {
 			System.out.println("HTML: " + fp.postHtml);
 			
 			System.out.println("#########################################################################");
+			
+			fpList[counter] = fp;
+			counter += 1;
 		}
 		
+		return fpList;
 	}
 	
 }
