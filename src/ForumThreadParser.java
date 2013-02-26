@@ -14,8 +14,17 @@ public class ForumThreadParser {
 	private Elements  threadList;
 	
 	public ForumThreadParser() throws IOException{
-		doc = Jsoup.connect("http://www.forum.hr/forumdisplay.php?f=141").get();
-		threadList = doc.getElementById("threadslist").getElementsByTag("tr");
+		String url = "http://www.forum.hr/forumdisplay.php?f=141";
+		doc = Jsoup.connect(url).get();
+		Element th_list = doc.getElementById("threadslist");
+		if (th_list == null){
+			doc = Jsoup.connect(url + "&iframed=1#").timeout(15*1000).get();
+			threadList = doc.getElementById("threadslist").getElementsByTag("tr");
+		}
+		else{
+			threadList = th_list.getElementsByTag("tr");
+		}
+		
 	}
 	
 	public List<ForumThread> getThreadList(){

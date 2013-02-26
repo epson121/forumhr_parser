@@ -15,8 +15,18 @@ public class ForumPostParser {
 	
 	public ForumPostParser() throws IOException{
 		//doc = Jsoup.connect("http://www.forum.hr/showthread.php?t=767743").get();
-		doc = Jsoup.connect("http://www.forum.hr/showthread.php?t=177508&page=314").get();
+		String url = "http://www.forum.hr/showthread.php?t=140799&page=4";
+		doc = Jsoup.connect(url).get();
 		//postList = doc.getElementById("posts").select("table[id~=post[0-9]+");
+		Element th_list = doc.getElementById("posts");
+		if (th_list == null){
+			url = url.replace("show.hr/forum", "forum.hr");
+			doc = Jsoup.connect(url + "&iframed=1#").timeout(15*1000).get();
+			postList = doc.getElementById("posts").select("div[id~=edit[0-9]+");
+		}
+		else{
+			postList = th_list.getElementsByTag("tr");
+		}
 		postList = doc.getElementById("posts").select("div[id~=edit[0-9]+");
 	}
 	
