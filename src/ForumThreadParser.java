@@ -14,7 +14,7 @@ public class ForumThreadParser {
 	private Elements  threadList;
 	
 	public ForumThreadParser() throws IOException{
-		String url = "http://www.forum.hr/forumdisplay.php?f=141";
+		String url = "http://www.forum.hr/forumdisplay.php?f=65";
 		doc = Jsoup.connect(url).get();
 		Element th_list = doc.getElementById("threadslist");
 		if (th_list == null){
@@ -33,7 +33,7 @@ public class ForumThreadParser {
 		int counter = 0;
 		for (Element e : threadList){
 			ForumThread thread = new ForumThread();
-			if (counter >= 2){
+			if (counter > 0){
 				//get thread id
 				threadId = Integer.parseInt(e.child(0).attr("id").split("_")[2]);
 				thread.id = threadId;
@@ -52,12 +52,14 @@ public class ForumThreadParser {
 					}
 				}
 				System.out.println(thread.threadName);
+				
 				//get number of pages
 				Elements anchors = e.getElementsByTag("span").tagName("a");
 				if (!anchors.select("[href^=showthread.php]").isEmpty())
 					thread.numOfPages = Integer.parseInt(anchors.select("[href^=showthread.php]").last().attr("href").split("&page=")[1]);
 				if (thread.numOfPages == 0)
 					thread.numOfPages = 1;
+				
 				
 				//get isTop thread
 				Elements divTags  = e.getElementsByTag("img").select("[alt=Top tema]");
@@ -67,6 +69,7 @@ public class ForumThreadParser {
 				else{
 					thread.isTop = true;
 				}
+				System.out.println(thread.isTop);
 				
 				//get information about last post
 				divTags  = e.getElementsByTag("div").select("[class=smallfont]");
@@ -77,11 +80,18 @@ public class ForumThreadParser {
 				
 				if (!divTags.isEmpty()){
 					thread.lastPost = divTags.select("[style=text-align:right; white-space:nowrap]").get(0).text();
-					thread.threadAuthor = divTags.select("[style=cursor:pointer]").get(0).text();
+					Elements el = divTags.select("[style=cursor:pointer]");
+					if (el.isEmpty()){
+						thread.threadAuthor = divTags.select("div[class=smallfont]").get(0).text();
+					}
+					else{
+						thread.threadAuthor = el.get(0).text();
+					}
+					System.out.println(thread.threadAuthor);
 				}
 				System.out.println(thread.lastPost);
-				System.out.println(thread.threadAuthor);
-				System.out.println(thread.isTop);
+				
+				
 				System.out.println("Broj stranica: " + thread.numOfPages);
 				System.out.println("######################################");
 			}

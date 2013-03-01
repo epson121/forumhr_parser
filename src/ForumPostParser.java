@@ -15,7 +15,7 @@ public class ForumPostParser {
 	
 	public ForumPostParser() throws IOException{
 		//doc = Jsoup.connect("http://www.forum.hr/showthread.php?t=767743").get();
-		String url = "http://www.forum.hr/showthread.php?t=140799&page=4";
+		String url = "http://www.forum.hr/forumdisplay.php?f=65";
 		doc = Jsoup.connect(url).get();
 		//postList = doc.getElementById("posts").select("table[id~=post[0-9]+");
 		Element th_list = doc.getElementById("posts");
