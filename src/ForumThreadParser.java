@@ -12,9 +12,11 @@ public class ForumThreadParser {
 
 	private Document doc;
 	private Elements  threadList;
+	private String topicNumOfPages;
+	String nump;
 	
 	public ForumThreadParser() throws IOException{
-		String url = "http://www.forum.hr/forumdisplay.php?f=65";
+		String url = "http://www.forum.hr/forumdisplay.php?f=100";
 		doc = Jsoup.connect(url).get();
 		Element th_list = doc.getElementById("threadslist");
 		if (th_list == null){
@@ -31,9 +33,18 @@ public class ForumThreadParser {
 		List<ForumThread> thList = new ArrayList<ForumThread>();
 		int threadId;
 		int counter = 0;
+		
+		//get number of pages in topic
+		ForumThread.TopicNumOfPages = doc.select("div[class=pagenav]").select("td[class=vbmenu_control]").get(0).text().split("od ")[1];
+		System.out.println(nump);
 		for (Element e : threadList){
 			ForumThread thread = new ForumThread();
 			if (counter > 0){
+				
+				thread.TopicNumOfPages = topicNumOfPages;
+				
+				System.out.println("NUM OF PAGES: " + topicNumOfPages);
+				
 				//get thread id
 				threadId = Integer.parseInt(e.child(0).attr("id").split("_")[2]);
 				thread.id = threadId;

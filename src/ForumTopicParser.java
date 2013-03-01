@@ -51,7 +51,7 @@ public class ForumTopicParser {
         	}
         	
     		topic.description = desc;
-        	
+    				        	
 			//get subtopics list
 			for (Element el : descriptions){
 				Elements subTopics = el.getElementsByTag("a");
