@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,6 +16,7 @@ public class ForumThreadParser {
 	private Elements  threadList;
 	private String topicNumOfPages;
 	String nump;
+	
 	
 	public ForumThreadParser() throws IOException{
 		String url = "http://www.forum.hr/forumdisplay.php?f=100";
