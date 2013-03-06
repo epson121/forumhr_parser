@@ -19,11 +19,11 @@ public class Main extends ForumTopic{
 		}
 		*/
 		
-		ForumThreadParser fthp = new ForumThreadParser();
-		fthp.getThreadList();
+		//ForumThreadParser fthp = new ForumThreadParser();
+		//fthp.getThreadList();
 		
-		//ForumPostParser fpp = new ForumPostParser();
-		//fpp.getPostList();
+		ForumPostParser fpp = new ForumPostParser();
+		fpp.getPostList();
 		
 	}
 }

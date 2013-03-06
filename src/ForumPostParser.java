@@ -15,7 +15,7 @@ public class ForumPostParser {
 	
 	public ForumPostParser() throws IOException{
 		//doc = Jsoup.connect("http://www.forum.hr/showthread.php?t=767743").get();
-		String url = "http://www.forum.hr/forumdisplay.php?f=65";
+		String url = "http://www.forum.hr/showthread.php?t=758171";
 		doc = Jsoup.connect(url).get();
 		//postList = doc.getElementById("posts").select("table[id~=post[0-9]+");
 		Element th_list = doc.getElementById("posts");
@@ -86,10 +86,14 @@ public class ForumPostParser {
 			//probat parse sa regexom (?:<quote>.+</quote>.+)*
 			fp.postText = wholeText;
 			
+			a.select("a[rel=nofollow]").remove();
+			
 			//get HTML
 			String wholeHtml = a.html();
 			fp.postHtml = wholeHtml;
 			System.out.println("HTML: " + fp.postHtml);
+			
+			
 			
 			System.out.println("#########################################################################");
 			
