@@ -33,6 +33,7 @@ public class ForumUserParser {
 			fUser.userName = temp.text();
 		}
 		
+		fUser.avatarUri = "www.forum.hr/" + doc.getElementById("user_avatar").attr("src");
 		
 		temp = mainUserInfo.select("div[id=last_online]").get(0);
 		
@@ -55,6 +56,7 @@ public class ForumUserParser {
 
 		System.out.println("USername: " + fUser.userName);
 		System.out.println("Last activity: " + fUser.userLastActivity);
+		System.out.println("Avatar URI: " + fUser.avatarUri);
 		System.out.println("Other info: " + fUser.userDefinedInfo);
 		
 		
