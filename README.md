@@ -31,6 +31,12 @@ For Post, attributes are:
 * postHtml (String)
 * postAuthorAvatarPath (String)
 
+For user, attributes are:
+* username (String)
+* userLastActivity (String)
+* userDefinedInfo (registrationDate, totalPost, age) (HashMap<String, String>)
+
+
 I intend to update this list as often as possible.
 
 Feel free to use any portion of this code without any permissions. 
