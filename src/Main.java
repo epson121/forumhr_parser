@@ -22,8 +22,10 @@ public class Main extends ForumTopic{
 		//ForumThreadParser fthp = new ForumThreadParser();
 		//fthp.getThreadList();
 		
-		ForumPostParser fpp = new ForumPostParser();
-		fpp.getPostList();
+		//ForumPostParser fpp = new ForumPostParser();
+		//fpp.getPostList();
 		
+		ForumUserParser fup = new ForumUserParser();
+		fup.getUserData();
 	}
 }

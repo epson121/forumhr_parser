@@ -54,8 +54,11 @@ public class ForumPostParser {
 			
 			//get post authors name
 			//some can be empty
-			fp.postAuthor = secondTR.select("a[class=bigusername]").text();
+			Element author = secondTR.select("a[class=bigusername]").get(0);
+			fp.postAuthor = author.text();
+			fp.postAuthorUri = "www.forum.hr/" + author.attr("href");
 			System.out.println("Post author: " + fp.postAuthor);
+			System.out.println("Post author url: " +  fp.postAuthorUri);
 			
 			//get author avatar url 
 			String avatarUrl = secondTR.select("div[class=smallfont]").select("img").attr("src");
